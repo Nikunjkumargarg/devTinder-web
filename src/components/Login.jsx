@@ -9,7 +9,7 @@ const Login = () => {
     e.preventDefault()
     console.log(email, password)
     try {
-      const response = await axios.post("http://localhost:7777/login", { emailId: email, password: password }, {
+      const response = await axios.post("http://localhost:7777/login", { emailId: email,password: password }, {withCredentials: true}, {
         headers: {
           'Content-Type': 'application/json'
         }
