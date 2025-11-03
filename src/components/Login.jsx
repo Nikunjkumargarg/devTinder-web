@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { addUser } from '../Utils/userSlice'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../Utils/constant'
 
 const Login = () => {
   const dispatch = useDispatch()
