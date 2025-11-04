@@ -12,17 +12,21 @@ const NavBar = () => {
 
   const handleLogout = async() => {
     try {
-      const response = await axios.post(BASE_URL + "/logout", {
+      const response = await axios.post(BASE_URL + "/logout", {}, {
         headers: {
           'Content-Type': 'application/json'
         },
         withCredentials: true
       });
+      console.log("response", response);
+      dispatch(removeUser());
+      navigate('/login');
     } catch (error) {
       console.log('Error:', error.response?.data || error.message);
+      // Still remove user and navigate even if logout fails
+      dispatch(removeUser());
+      navigate('/login');
     }
-    dispatch(removeUser());
-    navigate('/login');
   }
 
   const user = useSelector((store)=>store.user);
