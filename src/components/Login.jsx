@@ -9,6 +9,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const [email, setEmail] = useState('nikunj@gmail.com')
   const [password, setPassword] = useState('Niku@3232')
+  const [errorMessage, setErrorMessage] = useState('')
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -25,7 +26,7 @@ const Login = () => {
         navigate('/');
       }
     } catch (error) {
-      console.log('Error:', error.response?.data || error.message);
+      setErrorMessage(error.response?.data || "Something went wrong");
     }
   }
   const handleEmailChange = (e) => {
@@ -59,7 +60,7 @@ const Login = () => {
             className="input input-bordered w-full" 
             placeholder="Password" 
           />
-
+          {errorMessage && <p className='text-red-500 text-sm'>Error: {errorMessage}</p>}
           {/* type="submit" triggers form onSubmit when clicked OR when Enter is pressed */}
           <button type="submit" className="btn btn-neutral mt-4 w-full">Login</button>
         </fieldset>
