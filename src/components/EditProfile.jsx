@@ -11,17 +11,16 @@ const EditProfile = ({user}) => {
   const [firstName, setFirstName] = useState(user.firstname || '')
   const [lastName, setLastName] = useState(user.lastname || '')
   const [age, setAge] = useState(user.age || '' || null)
-  const [gender, setGender] = useState(user.gender || '' || null)
+  const [gender, setGender] = useState(user.gender || '')
   const [about, setAbout] = useState(user.about || '' || null)
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl || '' || null)
   const [errorMessage, setErrorMessage] = useState('')
-  const [successMessage, setSuccessMessage] = useState('')
+  const [saveAlert, setSaveAlert] = useState(false)
   const dispatch = useDispatch();
 
   const saveProfile = async (e) => {
     e.preventDefault();
     setErrorMessage('');
-    setSuccessMessage('');
 
     try{
       const response = await axios.patch(BASE_URL + "/profile/edit", {
@@ -41,7 +40,11 @@ const EditProfile = ({user}) => {
       if (response.data) {
         dispatch(addUser(response.data.data));
         setErrorMessage(''); // Clear any previous errors
-        setSuccessMessage('Profile updated successfully');
+        setSaveAlert(true);
+        // Hide alert after 3 seconds
+        setTimeout(() => {
+          setSaveAlert(false);
+        }, 3000);
       }
     }
     catch(error){
@@ -52,6 +55,14 @@ const EditProfile = ({user}) => {
 
   return (
     <>
+      {/* Toast notification at top center */}
+      {saveAlert && (
+        <div className="toast toast-top toast-center z-50">
+          <div className="alert alert-success">
+            <span>Profile updated successfully!</span>
+          </div>
+        </div>
+      )}
     <div className='flex justify-center my-10'>
     <div className="flex justify-center mx-10">
       {/* Using <form> with onSubmit - BEST PRACTICE */}
@@ -87,21 +98,25 @@ const EditProfile = ({user}) => {
           />
 
           <label className="label">Gender</label>
-          <input 
-            value={gender} 
-            type="text" 
-            className="input input-bordered w-full" 
-            placeholder="Gender" 
+          <select 
+            value={gender || ''} 
+            className="select select-bordered w-full" 
             onChange={(e) => setGender(e.target.value)}
-          />
+            required
+          >
+            <option value="" disabled selected={!gender}>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
 
           <label className="label">About</label>
-          <input 
-            value={about} 
-            type="text" 
-            className="input input-bordered w-full" 
+          <textarea 
+            value={about || ''} 
+            className="textarea textarea-bordered w-full" 
             placeholder="About" 
             onChange={(e) => setAbout(e.target.value)}
+            rows="4"
           />
 
           <label className="label">Photo URL</label>
@@ -113,8 +128,7 @@ const EditProfile = ({user}) => {
             onChange={(e) => setPhotoUrl(e.target.value)}
           />
 
-          {errorMessage && <p className='text-red-500 text-sm'>Error: {errorMessage}</p>}
-          {successMessage && <p className='text-green-500 text-sm'>Success: {successMessage}</p>}
+          {errorMessage && <p className='text-red-500 text-sm mt-2'>Error: {errorMessage}</p>}
           {/* type="submit" triggers form onSubmit when clicked OR when Enter is pressed */}
           <button type="submit" className="btn btn-neutral mt-4 w-full">Save Profile</button>
         </fieldset>
