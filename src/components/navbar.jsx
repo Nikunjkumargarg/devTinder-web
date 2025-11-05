@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { removeUser } from '../Utils/userSlice'
+import { removeFeed } from '../Utils/feedSlice'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL } from '../Utils/constant'
@@ -20,6 +21,7 @@ const NavBar = () => {
       });
       console.log("response", response);
       dispatch(removeUser());
+      dispatch(removeFeed());
       navigate('/login');
     } catch (error) {
       console.log('Error:', error.response?.data || error.message);
