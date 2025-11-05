@@ -33,7 +33,7 @@ const Feed = () => {
   // Handle single user object
   return feed && (
     <div className="flex justify-center my-10">
-      <UserCard user={feed} feedData={feed}/>
+      <UserCard user={feed.data[0]}/>
     </div>
   )
 }

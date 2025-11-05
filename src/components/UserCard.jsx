@@ -1,4 +1,5 @@
-const UserCard = ({feedData}) => {
+const UserCard = ({user}) => {
+  const {firstname, lastname, photoUrl, age, gender, about} = user;
   const handleIgnore = async() => {
     console.log("ignore");
   }
@@ -9,14 +10,14 @@ const UserCard = ({feedData}) => {
     <div className="card bg-base-300 w-96 shadow-sm">
     <figure className="px-10 pt-10">
       <img
-        src={feedData.data[0].photoUrl}
+        src={user.photoUrl}
         alt="user profile picture"
         className="rounded-xl" />
     </figure>
     <div className="card-body items-center text-center">
-      <h2 className="card-title">{feedData.data[0].firstname} {feedData.data[0].lastname}</h2>
-      {feedData.data[0].age && feedData.data[0].gender && <p>{feedData.data[0].age} {feedData.data[0].gender}</p>}
-      <p>{feedData.data[0].about}</p>
+      <h2 className="card-title">{user.firstname} {user.lastname}</h2>
+      {user.age && user.gender && <p>{user.age} {user.gender}</p>}
+      <p>{user.about}</p>
       <div className="card-actions">
         <button onClick={handleIgnore} className="btn btn-secondary">Ignore</button>
         <button onClick={handleSendRequest} className="btn btn-primary">Send Request</button>
