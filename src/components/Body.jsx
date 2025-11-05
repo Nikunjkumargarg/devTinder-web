@@ -30,10 +30,8 @@ const Body = () => {
     catch(error){
       if(error.response?.status === 401){
         navigate('/login');
-        console.log('Error:', error.response?.data || error.message);
       }
       else{
-        console.log('Error:', error.response?.data || error.message);
         navigate('/login');
       }
     }

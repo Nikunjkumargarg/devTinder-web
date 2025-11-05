@@ -20,11 +20,9 @@ const Feed = () => {
         },
         withCredentials: true
       });
-      console.log('Feed response:', response.data);
       dispatch(addFeed(response.data));
     }
     catch(error){
-      console.log('Error:', error.response?.data || error.message);
     }
   }
 
@@ -33,7 +31,7 @@ const Feed = () => {
   }, []);
 
   // Handle single user object
-  return (
+  return feed && (
     <div className="flex justify-center my-10">
       <UserCard user={feed} feedData={feed}/>
     </div>

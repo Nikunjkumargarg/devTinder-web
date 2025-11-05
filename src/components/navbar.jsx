@@ -19,12 +19,10 @@ const NavBar = () => {
         },
         withCredentials: true
       });
-      console.log("response", response);
       dispatch(removeUser());
       dispatch(removeFeed());
       navigate('/login');
     } catch (error) {
-      console.log('Error:', error.response?.data || error.message);
       // Still remove user and navigate even if logout fails
       dispatch(removeUser());
       navigate('/login');
@@ -32,7 +30,6 @@ const NavBar = () => {
   }
 
   const user = useSelector((store)=>store.user);
-  console.log("user",user);
     return (
         <div className="navbar bg-base-300 shadow-sm">
         <div className="flex-1">
