@@ -38,7 +38,7 @@ const Login = () => {
       console.log("response",response)
       if (response.data) {
         dispatch(addUser(response.data));
-        navigate('/');
+        navigate('/profile');
       }
     } catch (error) {
       console.log("error",error)
@@ -126,5 +126,4 @@ const Login = () => {
     </div>
   )
 }
-
 export default Login

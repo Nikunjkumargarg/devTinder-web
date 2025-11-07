@@ -88,13 +88,13 @@ const EditProfile = ({user}) => {
             onChange={(e) => setLastName(e.target.value)}
           />
 
-        <label className="label">Age</label>
+          <label className="label">Photo URL</label>
           <input 
-            value={age} 
-            type="number" 
+            value={photoUrl} 
+            type="text" 
             className="input input-bordered w-full" 
-            placeholder="Age" 
-            onChange={(e) => setAge(e.target.value)}
+            placeholder="Photo URL" 
+            onChange={(e) => setPhotoUrl(e.target.value)}
           />
 
           <label className="label">Gender</label>
@@ -109,6 +109,15 @@ const EditProfile = ({user}) => {
             <option value="female">Female</option>
             <option value="other">Other</option>
           </select>
+        <label className="label">Age</label>
+          <input 
+            value={age} 
+            type="number" 
+            className="input input-bordered w-full" 
+            placeholder="Age" 
+            onChange={(e) => setAge(e.target.value)}
+          />
+            
 
           <label className="label">About</label>
           <textarea 
@@ -119,14 +128,7 @@ const EditProfile = ({user}) => {
             rows="4"
           />
 
-          <label className="label">Photo URL</label>
-          <input 
-            value={photoUrl} 
-            type="text" 
-            className="input input-bordered w-full" 
-            placeholder="Photo URL" 
-            onChange={(e) => setPhotoUrl(e.target.value)}
-          />
+          
 
           {errorMessage && <p className='text-red-500 text-sm mt-2'>Error: {errorMessage}</p>}
           {/* type="submit" triggers form onSubmit when clicked OR when Enter is pressed */}
