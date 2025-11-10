@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { BASE_URL } from '../Utils/constant'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Connections = () => {
     const [connections, setConnections] = useState([])
@@ -55,15 +56,26 @@ const Connections = () => {
                         className="w-20 h-20 rounded-full object-cover" 
                     />
                 </figure>
-                <div className="card-body">
-                    <h2 className="card-title text-xl">{connection.firstname} {connection.lastname}</h2>
-                    {(connection.age || connection.gender) && (
-                        <p className="text-sm text-base-content/70">
-                            {connection.age && connection.gender && `${connection.age}, ${connection.gender}`
-                            }
-                        </p>
-                    )}
-                    <p className="text-base-content/80">{connection.about || "This is a default about of the user!"}</p>
+                <div className="card-body flex-row items-center gap-6">
+                    <div className="flex-1 space-y-1">
+                        <h2 className="card-title text-xl">{connection.firstname} {connection.lastname}</h2>
+                        {(connection.age || connection.gender) && (
+                            <p className="text-sm text-base-content/70">
+                                {connection.age && connection.gender && `${connection.age}, ${connection.gender}`
+                                }
+                            </p>
+                        )}
+                        <p className="text-base-content/80">{connection.about || "This is a default about of the user!"}</p>
+                    </div>
+                    <Link 
+                        to={`/chat/${connection._id}`} 
+                        className="btn btn-sm btn-circle bg-neutral-900 text-white border-0 shadow-lg transition-transform hover:-translate-y-0.5 hover:shadow-xl hover:bg-black"
+                        aria-label={`Chat with ${connection.firstname}`}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h6m0 0v6m0-6L10 16" />
+                        </svg>
+                    </Link>
                 </div>
             </div>
         ))}
